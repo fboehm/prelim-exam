@@ -1,2 +1,8 @@
 # Diversity outbred mice
 
+1. What is the DO study?
+    1. Design
+    1. Implementation
+1. Why is the DO design useful? What are traditional methods (ie, with inbred lines)? What are limitations of those traditional methods?
+1. What challenges arise due to DO design?
+1. What opportunities does DO study present?
