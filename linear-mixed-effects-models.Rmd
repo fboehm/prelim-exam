@@ -1,0 +1,9 @@
+# Linear mixed effects models
+
+1. What is the model that Karl & Brian use? 
+
+1. Why do they use it? 
+
+    1. What are its strengths & weaknesses?
+
+1. How do they fit the model? 
