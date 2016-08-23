@@ -3,6 +3,15 @@
 1. What is the DO study?
     1. Design
     1. Implementation
+      - how many mice per generation? How many breeding?
+      - where are the mice? ?Federal lab in Tennessee? 
 1. Why is the DO design useful? What are traditional methods (ie, with inbred lines)? What are limitations of those traditional methods?
 1. What challenges arise due to DO design?
 1. What opportunities does DO study present?
+
+
+
+The Diversity Outbred (DO) mouse population is a genetically heterogeneous stock that is used for mapping of quantitative trait loci for a wide range of phenotypes. It is now in its 18th generation [check this!]. The DO mouse population is maintained by random mating among a breeding population of about 175 mice (where siblings aren't permitted to mate with each other). 
+
+The study design began with mice from the eight Collaborative Cross (CC) inbred founder lines, [list the 8 lines here!]. These mice randomly mated to create the first generation of DO mice. From each first litter of first generation DO mice, the biologists selected two mice at random to be part of the breeding population that would give rise to the second generation of DO mice. 
+

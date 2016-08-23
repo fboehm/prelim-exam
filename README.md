@@ -1,4 +1,5 @@
 # prelim-exam
+
 Preliminary exam in statistics
 
 UW-Madison Statistics Department 2016-2017 handbook <http://www.stat.wisc.edu/sites/default/files/2016-17%20Complete%20PDF%20Handbook.pdf> says the following:
