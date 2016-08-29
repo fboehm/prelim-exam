@@ -26,3 +26,4 @@ vignettes/*.pdf
 README.html
 do-mice.html
 *.html
+_book

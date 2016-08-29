@@ -1,0 +1,22 @@
+--- 
+title: "Pleiotropy and Linkage in Multivariate QTL studies"
+author: "Fred Boehm"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+biblio-style: apalike
+link-citations: yes
+description: "Draft of my preliminary exam manuscript."
+---
+
+# Prerequisites
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+

@@ -1,9 +1,15 @@
 # Linear mixed effects models
 
-1. What is the model that Karl & Brian use? 
+Univariate models of each quantitative trait identified initial loci of interest. The models were fitted via restricted maximum likelihood methods. Karl Broman has implemented these methods in the R/qtl2scan and related packages.
+
+
+
+
 
 1. Why do they use it? 
 
     1. What are its strengths & weaknesses?
 
-1. How do they fit the model? 
+1. How do they fit the model?
+
+The linear mixed effects model is fitted by restricted maximum likelihood methods. 
