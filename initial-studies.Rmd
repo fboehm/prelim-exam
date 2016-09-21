@@ -1,0 +1,3 @@
+# Initial studies
+
+We implemented a likelihood ratio test in the R statistical computing environment [@R-base].
