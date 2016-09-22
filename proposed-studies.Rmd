@@ -1,0 +1,8 @@
+# Proposed Studies
+
+## Extend analysis from 2 traits to p > 2 comapping traits
+
+## Incorporate a mixed effects model-based likelihood ratio test
+
+We want to extend our initial work, in which we modeled the traits as arising from a bivariate normal distribution, to incorporate random effects and fixed effects. Specifically, we will use a kinship (covariance) matrix to account for genetic relatedness among the DO mice. We will treat each mouse's sex as a fixed effect to model differences in mean trait values between males and females.
+
