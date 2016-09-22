@@ -1,6 +1,8 @@
 # Proposed Studies
 
-## Extend analysis from 2 traits to p > 2 comapping traits
+## Extend analysis from 2 comapping traits to p > 2 comapping traits
+
+
 
 ## Incorporate a mixed effects model-based likelihood ratio test
 
