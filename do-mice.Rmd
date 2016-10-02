@@ -17,9 +17,6 @@ The study design began with mice from the eight Collaborative Cross (CC) inbred 
 
 Each mouse in the DO study possesses a unique mixture of founder haplotypes. We'll refer to a pair of haplotypes at a single locus and in a single mouse as a "diplotype". The precise nature of a given individual's diplotypes depends on the positions of meiotic crossover events. Combinatorics tells us that, for 8 inbred founder strains, there are $\binom{8}{1} = 8$ homozygote diplotypes and $\binom{8}{2} = 28$ heterozygous diplotypes for each locus. Inference of the 36 diplotype probabilities at each locus is a major prerequisite towards QTL mapping. In our study, Karl Broman implemented (in R/qtl2geno and related packages) a hidden Markov model (HMM) to infer diplotype probabilities from MegaMUGA SNP microarray intensities.
 
-Compared to more traditional QTL studies, which typically involve inbred lines, the DO study offers a population with much a greater degree of genetic diversity. Mice from each successive generation show greater extents of genetic diversity due to each generation's meiotic events. Study designers expected that greater genetic diversity would lead to greater phenotypic diversity among mice. This is indeed the case in the phenotypes studied to date. 
+Compared to more traditional QTL studies, which typically involve inbred lines, the DO study offers a population with a much greater degree of genetic diversity. Mice from each successive generation show greater extents of genetic diversity due to each generation's meiotic cross-over events. Study designers expected that greater genetic diversity would lead to greater phenotypic diversity among mice. This is indeed the case in the phenotypes studied to date. 
 
 
-
-
-Researchers 

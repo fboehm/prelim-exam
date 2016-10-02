@@ -1,10 +1,27 @@
 # Proposed Studies
 
-## Extend analysis from 2 comapping traits to p > 2 comapping traits
-
-
-
 ## Incorporate a mixed effects model-based likelihood ratio test
 
-We want to extend our initial work, in which we modeled the traits as arising from a bivariate normal distribution, to incorporate random effects and fixed effects. Specifically, we will use a kinship (covariance) matrix to account for genetic relatedness among the DO mice. We will treat each mouse's sex as a fixed effect to model differences in mean trait values between males and females.
+We want to extend our initial work, in which we modeled the traits as arising from a bivariate normal distribution, to incorporate random effects and fixed effects. Specifically, we will use a kinship (covariance) matrix to account for genetic relatedness among the DO mice[@kang2010variance]. Additionally, we will treat each mouse's sex as a fixed effect to model differences in mean trait values between males and females.
+
+We'll fit the linear mixed effects models with restricted maximum likelihood methods (REML). Our model specification requires likelihood maximization over values of the heritability, $h^2 = \frac{\sigma_g^2}{\sigma_e^2 + \sigma_g^2}$. Because of this, we'll evaluate the model likelihood at 0.01 increments of heritability, from 0.01 to 1.0. 
+
+
+
+
+
+## Extend analysis from 2 co-mapping clinical traits to $p > 2$ co-mapping clinical traits
+
+Our current methods allow for examination of exactly two co-mapping traits. Following methods of @tian2016dissection, we will extend these methods to examine $p > 2$ co-mapping traits. 
+
+
+## Examine co-mapping expression and clinical traits
+
+The Attie lab has acquired genome-wide gene expression levels from RNA-seq experiments on pancreatic islet $\beta$ cells. We will apply our methods to 
+
+**What is the plan for RNA seq data? Will Karl & Brian perform univariate QTL mapping for all expression traits?**
+
+
+
+
 

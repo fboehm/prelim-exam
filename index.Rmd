@@ -3,7 +3,9 @@ title: "Pleiotropy and Linkage in Multivariate QTL studies"
 author: "Fred Boehm"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output: 
+  - bookdown::pdf_book
+  - bookdown::gitbook
 documentclass: book
 bibliography: ["prelim.bib", "packages.bib"]
 biblio-style: apalike
@@ -11,7 +13,7 @@ link-citations: yes
 description: "Draft of my preliminary exam manuscript."
 ---
 
-# Prerequisites
+# Abstract
 
 
 ```{r include=FALSE}

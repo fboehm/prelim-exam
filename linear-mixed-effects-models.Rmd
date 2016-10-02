@@ -2,11 +2,17 @@
 
 Univariate models of each quantitative trait identified initial loci of interest. The models were fitted via restricted maximum likelihood methods. Karl Broman has implemented these methods in the R/qtl2scan and related packages.
 
+The model that we use is 
+
+$Y = X\beta + \epsilon$
+
+where $Var (\epsilon) = \sigma^2_g K + \sigma^2_e I$
+where $K$ is a known kinship matrix and $I$ is the identity matrix.
 
 
 
 
-1. Why do they use it? 
+1. Why do they use a linear mixed effects model? 
 
     1. What are its strengths & weaknesses?
 

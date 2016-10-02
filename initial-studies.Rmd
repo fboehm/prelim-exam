@@ -1,3 +1,10 @@
 # Initial studies
 
+## Univariate QTL mapping (by Karl Broman and Brian Yandell)
+
+Karl Broman and Brian Yandell performed univariate QTL mapping for the set of clinical phenotypes from Alan Attie's research team. 
+
+## Implementing a likelihood ratio test for pleiotropy vs close linkage in the DO study
+
 We implemented a likelihood ratio test in the R statistical computing environment [@R-base].
+
