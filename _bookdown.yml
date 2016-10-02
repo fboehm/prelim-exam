@@ -1,1 +1,1 @@
-rmd_files: ["index.Rmd", "abstract.Rmd", "do-mice.Rmd", "linear-mixed-effects-models.Rmd", "multivariate-methods.Rmd", "initial-studies.Rmd", "proposed-studies.Rmd"]
+rmd_files: ["index.Rmd", "do-mice.Rmd", "linear-mixed-effects-models.Rmd", "multivariate-methods.Rmd", "initial-studies.Rmd", "proposed-studies.Rmd"]
