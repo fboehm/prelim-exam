@@ -1,15 +1,14 @@
 --- 
-title: "Pleiotropy and Linkage in Multivariate QTL studies"
+title: "Statistical Hypothesis Tests to Distinguish Pleiotropy from  Linkage in Multivariate QTL Studies"
 author: "Fred Boehm"
-date: "`r Sys.Date()`"
+date: "`r format(Sys.time(), '%B %d, %Y (%X %Z)')`"
 site: bookdown::bookdown_site
 output: 
   - bookdown::pdf_book
-  - bookdown::gitbook
 documentclass: book
 bibliography: ["prelim.bib", "packages.bib"]
 biblio-style: apalike
-link-citations: yes
+link-citations: true
 description: "Draft of my preliminary exam manuscript."
 ---
 
@@ -22,4 +21,8 @@ knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
 ```
+
+We will develop methods for distinguishing pleiotropy from close linkage in model organism quantitative trait locus (QTL) mapping studies. We first survey the relevant statistical and scientific literature before discussing our pilot studies in which we demonstrate feasibility of our research strategy. We continue with detailed discussion of proposed studies and their potential impact on subsequent research.  
+
+
 

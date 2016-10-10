@@ -1,8 +1,14 @@
 # Linear mixed effects models
 
-Univariate models of each quantitative trait identified initial loci of interest. The models were fitted via restricted maximum likelihood methods. Karl Broman has implemented these methods in the R/qtl2scan and related packages.
+One important confounder in QTL studies is relatedness of subjects. Relatedness becomes apparent in QTL studies as 
 
-The model that we use is 
+Key reference (including discussion of likelihood equations): [@kang2008efficient] ie, the EMMA paper.
+
+Linear mixed effects models are widely used in genome-wide association studies and QTL studies to account for relatedness.
+
+Univariate models of each quantitative trait identified initial loci of interest. The models were fitted via restricted maximum likelihood methods (REML). Karl Broman has implemented these methods in the R/qtl2scan and related packages.
+
+The univariate model that we use for QTL mapping is:
 
 $Y = X\beta + \epsilon$
 

@@ -6,5 +6,369 @@ Karl Broman and Brian Yandell performed univariate QTL mapping for the set of cl
 
 ## Implementing a likelihood ratio test for pleiotropy vs close linkage in the DO study
 
-We implemented a likelihood ratio test in the R statistical computing environment [@R-base].
+With the goal of distinguishing pleiotropy from close linkage for two co-mapping clinical traits, we implemented a likelihood ratio test (LRT) in the R statistical computing environment [@R-base, @boehm2016pleiotropy]. The code is available as an R package at http://github.com/fboehm/pleiotropy
+
+
+
+
+## LRT with simulated phenotypes
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.keep = "all", fig.path='calculating-lrt-simulated-phenotypes-Figs/')
+library(pleiotropy)
+library(magrittr)
+```
+
+
+```{r}
+# load packages
+library(qtl2geno)
+library(qtl2scan)
+library(qtl2plot)
+library(broman) # contains the winsorize() function
+
+# load data
+### genotype probabilities ("probs") in form used by R/qtl2
+### see ../R/0_DOQTLprobs2qtl2.R for how they were converted
+PATH_TO_DERIVED_DATA <- "~/Box Sync/attie/attiedo"
+#PATH_TO_DERIVED_DATA <- "~/attie"
+load(file.path(PATH_TO_DERIVED_DATA, "DerivedData/GM_Attie_allele_call_haploprobs_4qtl2.RData"))
+### clinical phenotypes + phenotype dictionary
+### ("pheno_clin" and "pheno_clin_dict")
+load(file.path(PATH_TO_DERIVED_DATA, "DerivedData/pheno_clin.RData"))
+### kinship matrices ("loco" method) ("K")
+load(file.path(PATH_TO_DERIVED_DATA, "DerivedData/kinship.RData"))
+### covariate matrix ("covar")
+load(file.path(PATH_TO_DERIVED_DATA, "DerivedData/covar.RData"))
+### physical map of the markers in the probs array
+load(file.path(PATH_TO_DERIVED_DATA, "DerivedData/pmap.RData"))
+```
+
+Simulate data from DO genotypes data:
+
+```{r}
+set.seed(9-12-2016)
+y1 <- sim_pheno(genomat = probs$probs$`19`[, ,100], sd = 1)
+y2 <- sim_pheno(genomat = probs$probs$`19`[, ,100], sd = 1)
+y3 <- sim_pheno(genomat = probs$probs$`19`[, ,200], sd = 1)
+y4 <- sim_pheno(genomat = probs$probs$`19`[, , 150], sd = 1)
+y5 <- sim_pheno(genomat = probs$probs$`19`[, , 125], sd = 1)
+y6 <- sim_pheno(genomat = probs$probs$`19`[, , 110], sd = 1)
+y11 <- sim_pheno(genomat = probs$probs$`19`[, ,110], sd = 1)
+y12 <- sim_pheno(genomat = probs$probs$`19`[, ,110], sd = 1)
+
+```
+
+## 100 markers distance
+
+```{r}
+start <- 1
+stop <- 250
+n_marker <- stop - start + 1
+yy <- cbind(y1, y3)
+```
+
+```{r}
+calc_res(yy = yy, geno_array = probs$probs$`19`, start = 1, stop = 250) %>%       
+  calc_det_rss() %>% 
+  reshape2::melt() %>%
+  tibble::as_tibble() %>%
+  dplyr::rename(marker1 = Var1) %>%
+  dplyr::rename(marker2 = Var2) %>%
+  dplyr::rename(detrss = value) %>%
+  dplyr::mutate(log10detrss = log10(detrss)) %>%
+  calc_lod(n_mouse = dim(probs$probs$`19`)[3]) %>%
+  profile_plot(marker_positions = pmap$`19`[1:250])
+```
+
+
+
+## 50 markers distance
+
+```{r}
+start <- 1
+stop <- 250
+n_marker <- stop - start + 1
+yy <- cbind(y1, y4)
+```
+
+```{r}
+calc_res(yy = yy, geno_array = probs$probs$`19`, start = 1, stop = 250) %>%       
+  calc_det_rss() %>% 
+  reshape2::melt() %>%
+  tibble::as_tibble() %>%
+  dplyr::rename(marker1 = Var1) %>%
+  dplyr::rename(marker2 = Var2) %>%
+  dplyr::rename(detrss = value) %>%
+  dplyr::mutate(log10detrss = log10(detrss)) %>%
+  calc_lod(n_mouse = dim(probs$probs$`19`)[3]) %>%
+  profile_plot(marker_positions = pmap$`19`[1:250])
+```
+
+
+
+## 25 markers distance
+
+
+```{r}
+start <- 1
+stop <- 250
+n_marker <- stop - start + 1
+yy <- cbind(y1, y5)
+```
+
+```{r}
+calc_res(yy = yy, geno_array = probs$probs$`19`, start = 1, stop = 250) %>%       
+  calc_det_rss() %>% 
+  reshape2::melt() %>%
+  tibble::as_tibble() %>%
+  dplyr::rename(marker1 = Var1) %>%
+  dplyr::rename(marker2 = Var2) %>%
+  dplyr::rename(detrss = value) %>%
+  dplyr::mutate(log10detrss = log10(detrss)) %>%
+  calc_lod(n_mouse = dim(probs$probs$`19`)[3]) %>%
+  profile_plot(marker_positions = pmap$`19`[1:250])
+```
+
+
+
+## 10 markers distance
+
+
+
+```{r}
+yy <- cbind(y1, y6)
+calc_res(yy = yy, geno_array = probs$probs$`19`, start = 1, stop = 250) %>%       
+  calc_det_rss() %>% 
+  reshape2::melt() %>%
+  tibble::as_tibble() %>%
+  dplyr::rename(marker1 = Var1) %>%
+  dplyr::rename(marker2 = Var2) %>%
+  dplyr::rename(detrss = value) %>%
+  dplyr::mutate(log10detrss = log10(detrss)) %>%
+  calc_lod(n_mouse = dim(probs$probs$`19`)[3]) %>%
+  profile_plot(marker_positions = pmap$`19`[1:250])
+```
+
+
+## 0 markers distance
+
+
+
+```{r}
+start <- 1
+stop <- 250
+n_marker <- stop - start + 1
+yy <- cbind(y1, y2)
+```
+
+```{r}
+calc_res(yy = yy, geno_array = probs$probs$`19`, start = 1, stop = 250) %>%       
+  calc_det_rss() %>% 
+  reshape2::melt() %>%
+  tibble::as_tibble() %>%
+  dplyr::rename(marker1 = Var1) %>%
+  dplyr::rename(marker2 = Var2) %>%
+  dplyr::rename(detrss = value) %>%
+  dplyr::mutate(log10detrss = log10(detrss)) %>%
+  calc_lod(n_mouse = dim(probs$probs$`19`)[3]) %>%
+  profile_plot(marker_positions = pmap$`19`[1:250])
+```
+
+
+
+
+
+
+## LRT with DO phenotypes
+
+
+Recall that LOD is defined by the following equation:
+
+$$LOD = \frac{n}{2}\log_{10}\left( \frac{RSS0}{RSS1}\right)$$
+
+where `RSS0` is the residual sum of squares under the null hypothesis, and `RSS1` is the residual sum of squares under the alternative hypothesis.
+
+We then use the array of residuals to calculate the residual sums of squares, i.e., the determinants of our 2x2 (estimated) covariance matrices. Note that, for each entry in the matrix `rss`, we take one column from the ith marker and one column from the jth marker and bind them together as the 'matrix of residuals'. We then take the determinant of the cross product of the matrix of residuals.
+
+## Working with chromosome 3 DO mouse data
+
+```{r}
+# grab phenotype; transform
+# (need to be careful to preserve the individual names as rownames)
+phe1name <- "AA_G83_fract_ins_secrete"
+phe1 <- pheno_clin[,phe1name, drop=FALSE]
+phe1[,1] <- log(broman::winsorize(phe1[,1], 0.02)) # take logs and winsorize (rather heavily!)
+phe2name <- "GLP1_G83_ins_secrete"
+phe2 <- pheno_clin[,phe2name, drop=FALSE]
+phe2[,1] <- log(broman::winsorize(phe2[,1], 0.02)) # take logs and 
+
+# grab just the covariates we'll use
+covar <- covar[,c("sex", "diet_days")]
+
+# plug the physical map (pmap) into the probs object
+# (so then everything below in Mbp rather than cM)
+attr(probs, "map") <- pmap
+
+
+```
+
+We choose two phenotypes that show univariate associations on chromosome 3. 
+
+We then choose SNPs that flank the loci of interest as our start and stop points for the scan.
+
+```{r}
+start <- which(names(pmap$`3`) == "UNCHS010158")
+stop <- which(names(pmap$`3`) == "JAX00539452")
+```
+
+```{r}
+pp <- probs$probs$`3`
+```
+
+Format data to remove those mice with missing phenotype data:
+
+```{r}
+yy <- as.matrix(cbind(phe1, phe2))
+# adjust yy to 294 subjects that are in probs
+yy <- yy[rownames(yy) %in% rownames(probs$probs$`3`),]
+# remove subjects with NA trait values
+missing <- is.na(yy[ , 1])
+yy <- yy[!missing, ]
+pp <- pp[!missing, , ]
+```
+
+
+```{r}
+n_marker <- stop - start + 1
+```
+
+```{r}
+calc_res(yy = yy, geno_array = pp, start = start, stop = stop) %>%   
+  calc_det_rss() %>% 
+  reshape2::melt() %>%
+  tibble::as_tibble() %>%
+  dplyr::rename(marker1 = Var1) %>%
+  dplyr::rename(marker2 = Var2) %>%
+  dplyr::rename(detrss = value) %>%
+  dplyr::mutate(log10detrss = log10(detrss)) %>%
+  calc_lod(n_mouse = dim(pp)[3]) %>%
+  profile_plot(marker_positions = pmap$`3`[start:stop])
+```
+
+
+
+
+
+We write the LOD score as a function of two loci, $\lambda_1$ and $\lambda_2$. 
+
+$$LOD(\lambda_1, \lambda_2) = - \frac{n}{2} \left(\log_{10}|\Sigma| - \log_{10}|\Sigma_0|\right)$$
+
+Note that we are subtracting, in the above equation, the minimum value (along the diagonal of our matrix of determinant values) of the determinant of $E'E$, the analog of which, in univariate regression, is the residual sum of squares. In terms of our data structures, we are subtracting a constant from every entry of the matrix of determinant values. ***I still need to convince myself fully that this is the correct calculation***. Recall that Brian said that the profile LOD plots achieve the same maximum value, possibly at distinct loci.
+
+
+
+
+
+We consider the two profile LOD scores:
+
+$$LOD_1(\lambda_1) = \max_{\lambda_2} LOD(\lambda_1, \lambda_2)$$
+and
+$$LOD_2(\lambda_2) = \max_{\lambda_1} LOD(\lambda_1, \lambda_2)$$
+
+
+
+Looking at Jianan's code in https://github.com/jianan/qtlpvl/blob/source/R/plottrace.R, we see that her LOD profile plots have their negative values set to zero.
+
+## Examine body weight phenotypes on chromosome 17
+
+In examining the website https://www.biostat.wisc.edu/~kbroman/attieDO/lodpeaks_chr17.html with Mark Keller, we noticed that many body weight phenotypes map to chromosome 17. Two phenotypes with the greatest univariate LOD scores are the incremental weight gains from week 1 to 12 and week 1 to 11. Let's perform our analysis on these two phenotypes.
+
+First, we need to know the names of the traits as recorded in `pheno_clin`
+
+```{r}
+str(pheno_clin)
+phe1 <- pheno_clin[, "weight_11wk", drop = FALSE]
+phe2 <- pheno_clin[, "weight_12wk", drop = FALSE]
+phe1[, 1] <- log(broman::winsorize(phe1[, 1], 0.02))
+phe2[, 1] <- log(broman::winsorize(phe2[, 1], 0.02))
+yy <- as.matrix(cbind(phe1, phe2))
+# adjust yy to 294 subjects that are in probs
+yy <- yy[rownames(yy) %in% rownames(probs$probs$`17`),]
+# remove subjects with NA trait values
+missing <- is.na(yy[ , 1])
+yy <- yy[!missing, ]
+pp <- probs$probs$`17`
+pp <- pp[!missing, , ]
+```
+
+
+
+Now, we choose markers at 30 Mb and 33 Mb.
+
+
+```{r}
+start <- which(pmap$`17` > 30)[1]
+stop <- which(pmap$`17` > 33)[1]
+```
+
+
+```{r}
+calc_res(yy = yy, geno_array = pp, start = start, stop = stop) %>%       
+  calc_det_rss() %>% 
+  reshape2::melt() %>%
+  tibble::as_tibble() %>%
+  dplyr::rename(marker1 = Var1) %>%
+  dplyr::rename(marker2 = Var2) %>%
+  dplyr::rename(detrss = value) %>%
+  dplyr::mutate(log10detrss = log10(detrss)) %>%
+  calc_lod(n_mouse = dim(pp)[3]) %>%
+  profile_plot(marker_positions = pmap$`17`[start:stop])
+```
+
+### Insulin at sacrifice & body weight phenotypes on chromosome 17 (near 31.6 Mb)
+
+
+```{r}
+phe3name <- "Ins_sac"
+phe3 <- pheno_clin[, phe3name, drop = FALSE]
+phe3[, 1] <- log(broman::winsorize(phe3[, 1], 0.02))
+yy <- as.matrix(cbind(phe1, phe3))
+# adjust yy to 294 subjects that are in probs
+yy <- yy[rownames(yy) %in% rownames(probs$probs$`17`),]
+# remove subjects with NA trait values
+missing <- is.na(yy[ , 1]) | is.na(yy[ , 2])
+yy <- yy[!missing, ]
+pp <- probs$probs$`17`
+pp <- pp[!missing, , ]
+
+```
+
+```{r}
+start <- which(pmap$`17` > 30)[1]
+stop <- which(pmap$`17` > 33)[1]
+```
+
+
+```{r}
+foo <- calc_res(yy = yy, geno_array = pp, start = start, stop = stop) %>%  
+  calc_det_rss() %>% 
+  reshape2::melt() %>%
+  tibble::as_tibble() %>%
+  dplyr::rename(marker1 = Var1) %>%
+  dplyr::rename(marker2 = Var2) %>%
+  dplyr::rename(detrss = value) %>%
+  dplyr::mutate(log10detrss = log10(detrss)) %>%
+  calc_lod(n_mouse = dim(pp)[3]) 
+
+foo %>%
+  profile_plot(marker_positions = pmap$`17`[start:stop])
+```
+
+
+
+
+
+
+
 
